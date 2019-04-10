@@ -6,6 +6,7 @@ public class User {
 	
 	ArrayList<Song> songsPlayed = new ArrayList<Song>(); 
 	ArrayList<Date> dateSongsPlayed = new ArrayList<Date>();
+    String username = new String();
 	
 //	public static void main(String[] args) {
 //		User user = new User();
@@ -28,6 +29,25 @@ public class User {
 	public User () {
 
 	}
+	
+	public User (String username) {
+		this.username = username;
+	}
+	
+	public String toString() {
+		return this.getUsername();
+	}
+	
+	//Returns Username of user
+	public String getUsername() {
+		return this.username;
+	}
+	
+	//Sets Username of user
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
 	
 	//Adds new song to list of played songs, and records current date/time
 	public void addSongPlayed(Song songPlayed) {
