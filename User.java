@@ -10,8 +10,8 @@ public class User {
 	ArrayList<Song> songsPlayed = new ArrayList<Song>(); 
 	ArrayList<Date> dateSongsPlayed = new ArrayList<Date>();
 	Hashtable<String, Playlist> userPlaylists = new Hashtable<String, Playlist>();
-        boolean isAdmin; 
-        Queue<Song> songQueue = new LinkedList<Song>();
+    boolean isAdmin; 
+    Queue<Song> songQueue = new LinkedList<Song>();
 	String username = new String();
 	
 //	public static void main(String[] args) {
