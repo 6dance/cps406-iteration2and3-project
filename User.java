@@ -1,13 +1,19 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
 
 public class User {
 	
 	ArrayList<Song> songsPlayed = new ArrayList<Song>(); 
 	ArrayList<Date> dateSongsPlayed = new ArrayList<Date>();
-  
-  String username = new String();
+	Hashtable<String, Playlist> userPlaylists = new Hashtable<String, Playlist>();
+    boolean isAdmin; 
+    Queue<Song> songQueue = new LinkedList<Song>();
+	String username = new String();
 	
 //	public static void main(String[] args) {
 //		User user = new User();
@@ -48,6 +54,45 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
+	//Adds new playlist to user playlists table, playlist must have unique name
+        public void addPlaylist(Playlist playlist) {
+            //if playlist name already taken, return error
+            if(userPlaylists.containsKey(this.getUsername() + " " + playlist.getName()))
+            {
+                //return error
+            }
+            else
+            {
+                userPlaylists.put(this.getUsername() + " " + playlist.getName(), playlist);
+            }
+        }
+        
+        //Play queue
+        public void play(Playlist playlist){
+	    //if playlist is less than 1 hour or longer than 3 hours, return error
+            if((playlist.playlistTime < 60) | playlist.playlistTime > 180){
+                //return error
+            }
+            else{
+                songQueue.addAll(playlist.getPlaylist());
+                //play songs
+            }
+        }
+        
+        public ArrayList<Playlist> getPlaylistList(){
+        	ArrayList<Playlist> playlistList = new ArrayList<Playlist>();
+        	Set<String> keys = this.userPlaylists.keySet();
+        	for (String key : keys) {
+        		playlistList.add(this.userPlaylists.get(key));
+        	}
+        	return playlistList;
+        }
+        
+        //Makes user admin
+        private void makeAdmin(){
+            this.isAdmin = true;
+        }
 	
 	
 	//Adds new song to list of played songs, and records current date/time
