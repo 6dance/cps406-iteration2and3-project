@@ -6,7 +6,8 @@ public class User {
 	
 	ArrayList<Song> songsPlayed = new ArrayList<Song>(); 
 	ArrayList<Date> dateSongsPlayed = new ArrayList<Date>();
-    String username = new String();
+  
+  String username = new String();
 	
 //	public static void main(String[] args) {
 //		User user = new User();
