@@ -15,6 +15,14 @@ public class Song {
 		this.genre = "No Genre Set";
 	}
 	
+	//Constructor with parameters of name and length and artist and genre
+		public Song(String name, int length, String artist, String genre) {
+			this.name = name;
+			this.length = length;
+			this.artist = artist;
+			this.genre = genre;
+	}
+	
 	//Returns name of Song
 	public String getName() {
 		return this.name;

@@ -1,8 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Application
-{
+{	
+	
     public static void main(String[] args) throws Exception
     {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -11,6 +14,11 @@ public class Application
 
     private static void initUI()
     {
+    	//Instance Variables
+    	User currentUser = new User();
+    	currentUser.setUsername("Bob");
+    	currentUser.addSongPlayed(new Song("Hi", 5, "Billy", "Screamo"));
+    	
         // Create window UI display
         JFrame display = new JFrame("Music Manager - CPS406")
         {
@@ -32,6 +40,25 @@ public class Application
                                     {
                                         addActionListener((x) -> System.exit(0));
                                     }
+                                });
+                                add(new JSeparator());
+                                add(new JMenuItem("User Stats")
+                                {
+                                    {
+                                        addActionListener(new userStatsListener());
+                                    }
+                                    class userStatsListener implements ActionListener
+                            		{
+                            			// When button is pressed, clears then displays all checkout text
+                            			public void actionPerformed(ActionEvent e)
+                            			{
+                            				String statsAsString = "Most Played Song: " + currentUser.getMostPlayedSong() + "\n"
+                            				 + "Favorite Artist:        " + currentUser.getMostFreqArtist() + "\n"
+                            				 + "Favorite Genre:       " + currentUser.getMostFreqGenre();
+                            				
+                            				JOptionPane.showMessageDialog(null, statsAsString, currentUser.getUsername() + " Stats", JOptionPane.INFORMATION_MESSAGE);
+                            			}
+                            		}
                                 });
                                 add(new JSeparator());
                                 add(new JMenuItem("Exit")
