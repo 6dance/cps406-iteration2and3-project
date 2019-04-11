@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
 
 public class User {
 	
@@ -78,15 +77,6 @@ public class User {
                 songQueue.addAll(playlist.getPlaylist());
                 //play songs
             }
-        }
-        
-        public ArrayList<Playlist> getPlaylistList(){
-        	ArrayList<Playlist> playlistList = new ArrayList<Playlist>();
-        	Set<String> keys = this.userPlaylists.keySet();
-        	for (String key : keys) {
-        		playlistList.add(this.userPlaylists.get(key));
-        	}
-        	return playlistList;
         }
         
         //Makes user admin
