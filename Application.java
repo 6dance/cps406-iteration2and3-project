@@ -14,7 +14,6 @@ public class Application
     private static Playlist currentPlaylist;
 
     private static Playlist databasePlaylist;
-    private static Playlist testPlaylist;
 
     private static ArrayList<User> listOfAllUsers;
     private static ArrayList<Playlist> currentListOfPlaylists;
@@ -37,18 +36,23 @@ public class Application
         listOfAllUsers.add(new User("beepis"));
         
         databasePlaylist = new Playlist( "Database" );
-        testPlaylist = new Playlist( "Playlist 1" );
 
         currentPlaylist = databasePlaylist;
 
-        currentListOfPlaylists = new ArrayList<Playlist>();
-        currentListOfPlaylists.add(databasePlaylist);
-        currentListOfPlaylists.add(testPlaylist);
+        currentListOfPlaylists = currentUser.getPlaylistList();
+        //currentListOfPlaylists.add(databasePlaylist);
+        //currentListOfPlaylists.add(testPlaylist);
     }
 
     private static void setCurrentPlaylist(Playlist playlist)
     {
         currentPlaylist = playlist;
+    }
+
+    private static void setCurrentListofPlaylists(ArrayList<Playlist> playlists)
+    {
+        currentPlaylist = databasePlaylist;
+        currentListOfPlaylists = playlists;
     }
 
     private static void setCurrentUser(User user)
@@ -80,17 +84,24 @@ public class Application
         return null;
     }
 
+    private static void addNewUser( String name )
+    {
+        User newUser = new User( name );
+
+        //currentUser.addPlaylist( newPlaylist );
+
+        listOfAllUsers.add( newUser );
+
+        setCurrentListofPlaylists( currentUser.getPlaylistList() );
+    }
+
     private static void addNewPlaylist( String name )
     {
         Playlist newPlaylist = new Playlist( name );
 
-        setCurrentPlaylist( newPlaylist );
-        currentListOfPlaylists.add( newPlaylist );
-    }
+        currentUser.addPlaylist( newPlaylist );
 
-    private static Song findSong( String name, String length, String artist, String genre )
-    {
-        return new Song("afasgas", 234);
+        setCurrentListofPlaylists( currentUser.getPlaylistList() );
     }
 
     private static void initUI()
@@ -111,13 +122,6 @@ public class Application
                         {
                             {
                                 // Add File options
-                                add(new JMenuItem("Add...")
-                                {
-                                    {
-                                        addActionListener((x) -> initUI());
-                                    }
-                                });
-                                add(new JSeparator());
                                 add(new JMenuItem("User Stats")
                                 {
                                     {
@@ -165,7 +169,9 @@ public class Application
 
                                 addActionListener((x) -> 
                                 {
-                                    setCurrentUser( findUserByName( (String) getSelectedItem() ) );
+                                    User user = findUserByName( (String) getSelectedItem() );
+                                    setCurrentUser( user );
+                                    setCurrentListofPlaylists( user.getPlaylistList() );
                                     display.dispose();
                                     initUI();
                                 });
@@ -176,6 +182,7 @@ public class Application
                         add(new JComboBox()
                         {
                             {
+                                //System.out.println( currentPlaylist.getName() );
                                 addItem( currentPlaylist.getName() );
                                 for ( Playlist playlist : currentListOfPlaylists )
                                 {
@@ -183,9 +190,25 @@ public class Application
                                     addItem( playlist.getName() );
                                 }
 
+                                if (databasePlaylist != currentPlaylist) addItem( databasePlaylist.getName() );
+
                                 addActionListener((x) -> 
                                 {
-                                    setCurrentPlaylist( findPlaylistByName( (String) getSelectedItem() ) );
+                                    String name = (String) getSelectedItem();
+                                    if ( name.equals( "Database" ) )  setCurrentPlaylist( databasePlaylist );
+                                    else setCurrentPlaylist( findPlaylistByName( name ) );
+                                    display.dispose();
+                                    initUI();
+                                });
+                            }
+                        });
+
+                        add(new JButton("New user")
+                        {
+                            {
+                                addActionListener((x) ->
+                                {
+                                    addNewUser( JOptionPane.showInputDialog("Enter username for new user") );
                                     display.dispose();
                                     initUI();
                                 });
