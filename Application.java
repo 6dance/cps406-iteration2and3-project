@@ -38,6 +38,16 @@ public class Application
         databasePlaylist = new Playlist( "Database" );
 
         currentPlaylist = databasePlaylist;
+        databasePlaylist.addToPlaylist(new Song("Song 1", 1));
+        databasePlaylist.addToPlaylist(new Song("Song 2", 2));
+        databasePlaylist.addToPlaylist(new Song("Song 3", 3));
+        databasePlaylist.addToPlaylist(new Song("Song 4", 4));
+        databasePlaylist.addToPlaylist(new Song("Song 5", 5));
+        databasePlaylist.addToPlaylist(new Song("Song 6", 6));
+        databasePlaylist.addToPlaylist(new Song("Song 7", 7));
+        databasePlaylist.addToPlaylist(new Song("Song 8", 8));
+        databasePlaylist.addToPlaylist(new Song("Song 9", 9));
+        databasePlaylist.addToPlaylist(new Song("Song 10", 10));
 
         currentListOfPlaylists = currentUser.getPlaylistList();
         //currentListOfPlaylists.add(databasePlaylist);

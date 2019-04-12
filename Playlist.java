@@ -9,7 +9,6 @@ public class Playlist{
     {
         setName( name );
         playlistTime = 0;
-        playlist.add(new Song("beepis", 69));
     }
     
     //Returns playlist
